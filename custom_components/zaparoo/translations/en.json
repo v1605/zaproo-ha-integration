@@ -1,0 +1,18 @@
+{
+    "title": "Zaparoo",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Add Zaparoo Instance",
+                "description": "Enter host and port for this Zaparoo device.",
+                "data": {
+                    "host": "Host / IP",
+                    "port": "Port"
+                }
+            }
+        },
+        "abort": {
+            "already_configured": "This Zaparoo device is already configured."
+        }
+    }
+}

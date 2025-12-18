@@ -1,0 +1,55 @@
+launch:
+  name: Launch token
+  description: >
+    Emulate scanning a Zaparoo token.
+  target:
+    device:
+      integration: zaparoo
+  fields:
+    type:
+      name: Token type
+      description: Optional internal token category (used for logging).
+      example: nfc
+      selector:
+        text:
+
+    text:
+      name: Token text
+      description: >
+        Main token text containing ZapScript
+        (e.g. **launch.title:SNES/Super Mario World).
+      example: "**launch.title:SNES/Super Mario World"
+      selector:
+        text:
+
+    data:
+      name: Raw token data
+      description: >
+        Raw token data as a hexadecimal string.
+        Used for mappings and NFC toy detection.
+      example: "04A224BCFF12"
+      selector:
+        text:
+
+    unsafe:
+      name: Allow unsafe operations
+      description: Allow unsafe ZapScript operations.
+      default: false
+      example: false
+      selector:
+        boolean:
+
+
+stop:
+  name: Stop launcher
+  description: Kill any active launcher, if supported by the platform.
+  target:
+    device:
+      integration: zaparoo
+
+media:
+  name: Media Query
+  description: Returns the current media database status and active media.
+  target:
+    device:
+      integration: zaparoo
