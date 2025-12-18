@@ -1,11 +1,15 @@
 launch:
   name: Launch token
-  description: >
-    Emulate scanning a Zaparoo token.
-  target:
-    device:
-      integration: zaparoo
+  description: Emulate scanning a Zaparoo token.
   fields:
+    device_id:
+      name: Zaparoo device
+      description: Target Zaparoo device
+      required: true
+      selector:
+        device:
+          integration: zaparoo
+
     type:
       name: Token type
       description: Optional internal token category (used for logging).
@@ -17,7 +21,7 @@ launch:
       name: Token text
       description: >
         Main token text containing ZapScript
-        (e.g. **launch.title:SNES/Super Mario World).
+        (e.g. **launch.title:SNES/Super Mario World)
       example: "**launch.title:SNES/Super Mario World"
       selector:
         text:
@@ -35,21 +39,31 @@ launch:
       name: Allow unsafe operations
       description: Allow unsafe ZapScript operations.
       default: false
-      example: false
       selector:
         boolean:
 
 
 stop:
   name: Stop launcher
-  description: Kill any active launcher, if supported by the platform.
-  target:
-    device:
-      integration: zaparoo
+  description: Kill any active launcher, if supported.
+  fields:
+    device_id:
+      name: Zaparoo device
+      description: Target Zaparoo device
+      required: true
+      selector:
+        device:
+          integration: zaparoo
+
 
 media:
-  name: Media Query
-  description: Returns the current media database status and active media.
-  target:
-    device:
-      integration: zaparoo
+  name: Media query
+  description: Return current media state and database info.
+  fields:
+    device_id:
+      name: Zaparoo device
+      description: Target Zaparoo device
+      required: true
+      selector:
+        device:
+          integration: zaparoo
