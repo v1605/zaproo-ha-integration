@@ -63,6 +63,8 @@ class ZaparooCoordinator(DataUpdateCoordinator):
     def disconnected(self) -> None:
         """Set connected to false."""
         self.data["connected"] = False
+        self.data["last_event_method"] = None
+        self.data["last_event_params"] = None
         self.async_set_updated_data(self.data)
 
     def connected(self) -> None:
