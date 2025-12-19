@@ -62,8 +62,6 @@ def _device_ids_from_target(call: ServiceCall) -> list[str]:
 async def async_launch_service(call: ServiceCall) -> None:
     """Call to launch a token."""
     hass = call.hass
-    _LOGGER.info("Service Data Payload: %s", call.data)
-
     device_ids = _device_ids_from_target(call)
 
     if not any(call.data.get(k) for k in ("text", "data")):
