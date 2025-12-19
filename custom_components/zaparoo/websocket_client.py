@@ -65,7 +65,7 @@ class ZaparooWebSocket:
                 _LOGGER.debug("Connecting to Zaparoo WS: %s", url)
                 async with websockets.connect(
                     url,
-                    ping_interval=30,
+                    ping_interval=15,
                     ping_timeout=10,
                 ) as ws:
                     self._ws = ws
