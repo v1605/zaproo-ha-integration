@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import logging
 from typing import TYPE_CHECKING, Any, cast
 
 import voluptuous as vol
@@ -22,9 +21,6 @@ if TYPE_CHECKING:
 SERVICE_LAUNCH = "launch"
 SERVICE_STOP = "stop"
 SERVICE_MEDIA = "media"
-
-_LOGGER = logging.getLogger(__name__)
-
 
 LAUNCH_SCHEMA = vol.Schema(
     {
