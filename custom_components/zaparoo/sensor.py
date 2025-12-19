@@ -39,7 +39,7 @@ async def async_setup_entry(
 
 
 class ZaparooNotificationSensor(CoordinatorEntity, SensorEntity):
-    """Sensor that displays the most recent Zaparoo event."""
+    """Sensor that displays the most recent Zaparoo notification."""
 
     _attr_icon = "mdi:satellite-uplink"
     _attr_native_unit_of_measurement = None
@@ -55,7 +55,7 @@ class ZaparooNotificationSensor(CoordinatorEntity, SensorEntity):
 
         self.entry = entry
         self._attr_unique_id = f"{entry.entry_id}_events"
-        self._attr_name = f"Zaparoo Events ({host})"
+        self._attr_name = f"Zaparoo Notification ({host})"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, entry.entry_id)},
             name="Zaparoo",
@@ -64,17 +64,17 @@ class ZaparooNotificationSensor(CoordinatorEntity, SensorEntity):
 
     @property
     def native_value(self) -> str:
-        """Display the last event type (e.g., 'media.started')."""
-        return str(self.coordinator.data.get("last_event_method"))
+        """Display the last notification type (e.g., 'media.started')."""
+        return str(self.coordinator.data.get("last_notification_method"))
 
     @property
     def extra_state_attributes(self) -> Any:
         """Expose event parameters."""
-        return self.coordinator.data.get("last_event_params") or {}
+        return self.coordinator.data.get("last_notification_params") or {}
 
 
 class ZaparooConnectedSensor(CoordinatorEntity, SensorEntity):
-    """Sensor that displays the most recent Zaparoo event."""
+    """Sensor that displays the most recent Zaparoo notification."""
 
     _attr_icon = "mdi:connection"
     _attr_native_unit_of_measurement = None
