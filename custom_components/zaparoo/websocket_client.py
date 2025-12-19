@@ -86,7 +86,7 @@ class ZaparooWebSocket:
             self._fail_pending(RuntimeError("WebSocket disconnected"))
 
             if not self._stop:
-                await asyncio.sleep(30)
+                await asyncio.sleep(5)
 
         _LOGGER.debug("Zaparoo WS loop stopped")
 
