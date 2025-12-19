@@ -46,13 +46,17 @@ NO_BODY_SCHEMA = vol.Schema(
 
 
 def _device_ids_from_target(call: ServiceCall) -> list[str]:
-    """Extract device IDs from HA service target."""
-    device_ids = call.data.get("device_id", [])
+    """Extract device IDs from HA service call."""
+    device_ids = call.data.get("device_id")
     if not device_ids:
         msg = "No target devices specified"
         raise HomeAssistantError(msg)
-
-    return device_ids
+    if isinstance(device_ids, str):
+        return [device_ids]
+    if isinstance(device_ids, list):
+        return device_ids
+    msg = "Invalid device_id type"
+    raise HomeAssistantError(msg)
 
 
 async def async_launch_service(call: ServiceCall) -> None:

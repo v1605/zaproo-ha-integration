@@ -1,10 +1,15 @@
 launch:
   name: Launch token
   description: Emulate scanning a Zaparoo token.
-  target:
-    device:
-      integration: zaparoo
   fields:
+    device_id:
+      name: Device
+      description: Target Zaparoo device
+      required: true
+      selector:
+        device:
+          integration: zaparoo
+
     type:
       name: Token type
       description: Optional internal token category (used for logging).
@@ -37,18 +42,26 @@ launch:
       selector:
         boolean:
 
-
 stop:
   name: Stop launcher
   description: Kill any active launcher, if supported.
-  target:
-    device:
-      integration: zaparoo
-
+  fields:
+    device_id:
+      name: Device
+      description: Target Zaparoo device
+      required: true
+      selector:
+        device:
+          integration: zaparoo
 
 media:
   name: Media query
   description: Return current media state and database info.
-  target:
-    device:
-      integration: zaparoo
+  fields:
+    device_id:
+      name: Device
+      description: Target Zaparoo device
+      required: true
+      selector:
+        device:
+          integration: zaparoo
