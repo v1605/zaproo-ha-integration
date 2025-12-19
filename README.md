@@ -1,46 +1,155 @@
-# Notice
+# Zaparoo Home Assistant Integration
 
-The component and platforms in this repository are not meant to be used by a
-user, but as a "blueprint" that custom component developers can build
-upon, to make more awesome stuff.
+The Zaparoo integration connects Home Assistant to a Zaparoo device, allowing you to emulate token scans, control active launchers, and monitor media and connection state in real time.
+This integration is designed with events in mind. It uses a persistent WebSocket connection for fast updates and responsive control.
 
-HAVE FUN! 😎
+---
 
-## Why?
+## Features
 
-This is simple, by having custom_components look (README + structure) the same
-it is easier for developers to help each other and for users to start using them.
+- Emulate scanning Zaparoo NFC or token data
+- Stop active launchers remotely
+- Query current media state and database info
+- Live sensors for:
+  - Last Zaparoo event
+  - Device connection state
+  - Currently playing media
+- Compatible with automations, scripts, and dashboards
 
-If you are a developer and you want to add things to this "blueprint" that you think more
-developers will have use for, please open a PR to add it :)
+---
 
-## What?
+## Installation
 
-This repository contains multiple files, here is a overview:
+### Via HACS (recommended)
 
-File | Purpose | Documentation
--- | -- | --
-`.devcontainer.json` | Used for development/testing with Visual Studio Code. | [Documentation](https://code.visualstudio.com/docs/remote/containers)
-`.github/ISSUE_TEMPLATE/*.yml` | Templates for the issue tracker | [Documentation](https://help.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository)
-`custom_components/integration_blueprint/*` | Integration files, this is where everything happens. | [Documentation](https://developers.home-assistant.io/docs/creating_component_index)
-`CONTRIBUTING.md` | Guidelines on how to contribute. | [Documentation](https://help.github.com/en/github/building-a-strong-community/setting-guidelines-for-repository-contributors)
-`LICENSE` | The license file for the project. | [Documentation](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/licensing-a-repository)
-`README.md` | The file you are reading now, should contain info about the integration, installation and configuration instructions. | [Documentation](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)
-`requirements.txt` | Python packages used for development/lint/testing this integration. | [Documentation](https://pip.pypa.io/en/stable/user_guide/#requirements-files)
+1. Add this repository as a Custom Repository
+2. Install the Zaparoo integration
+3. Restart Home Assistant
 
-## How?
+### Manual Installation
 
-1. Create a new repository in GitHub, using this repository as a template by clicking the "Use this template" button in the GitHub UI.
-1. Open your new repository in Visual Studio Code devcontainer (Preferably with the "`Dev Containers: Clone Repository in Named Container Volume...`" option).
-1. Rename all instances of the `integration_blueprint` to `custom_components/<your_integration_domain>` (e.g. `custom_components/awesome_integration`).
-1. Rename all instances of the `Integration Blueprint` to `<Your Integration Name>` (e.g. `Awesome Integration`).
-1. Run the `scripts/develop` to start HA and test out your new integration.
+1. Copy `custom_components/zaparoo` into your Home Assistant configuration directory
+2. Restart Home Assistant
 
-## Next steps
+---
 
-These are some next steps you may want to look into:
-- Add tests to your integration, [`pytest-homeassistant-custom-component`](https://github.com/MatthewFlamm/pytest-homeassistant-custom-component) can help you get started.
-- Add brand images (logo/icon) to https://github.com/home-assistant/brands.
-- Create your first release.
-- Share your integration on the [Home Assistant Forum](https://community.home-assistant.io/).
-- Submit your integration to [HACS](https://hacs.xyz/docs/publish/start).
+## Configuration
+
+Configuration is done through the Home Assistant UI.
+You will need:
+- The Zaparoo device hostname or address
+- Network connectivity to the device to the Home Assistant Server
+
+Once configured, the integration creates a Zaparoo device with associated sensors and services.
+
+---
+
+## Services
+
+### zaparoo.launch
+
+Emulate scanning a Zaparoo token. This is the primary way to trigger ZapScript actions from Home Assistant.
+
+Fields:
+
+- device_id (required)  
+  Target Zaparoo device
+
+- type (optional)  
+  Optional internal token category (used for logging), for example nfc
+
+- text (optional)  
+  Main token text containing ZapScript  
+  Example:
+  **launch.title:SNES/Super Mario World
+
+- data (optional)  
+  Raw token data as a hexadecimal string  
+  Example:
+  04A224BCFF12
+
+- unsafe (optional, default: false)  
+  Allow unsafe ZapScript operations
+
+Example:
+```yaml
+service: zaparoo.launch  
+data:  
+  device_id: YOUR_DEVICE_ID  
+  text: "**launch.title:SNES/Super Mario World"
+```
+
+---
+
+### zaparoo.stop
+
+Stop any active launcher, if supported by the device.
+
+Fields:
+
+- device_id (required)  
+  Target Zaparoo device
+
+Example:
+```yaml
+service: zaparoo.stop  
+data:  
+  device_id: YOUR_DEVICE_ID
+```
+---
+
+### zaparoo.media
+
+Query the current media state and database info.
+This service returns a response payload and is intended for use in scripts and automations that consume service responses.
+
+Fields:
+
+- device_id (required)  
+  Target Zaparoo device
+
+Example:
+```yaml
+service: zaparoo.media  
+data:  
+  device_id: YOUR_DEVICE_ID  
+response_variable: media_state
+```
+---
+
+## Sensors
+
+Each configured Zaparoo device provides the following sensors.
+
+### Zaparoo Events
+
+Displays the most recent Zaparoo notification, such as media.started.
+The sensor exposes additional attributes containing the full event payload received from the device. The full documentation of events can be found [here](https://zaparoo.org/docs/core/api/notifications/)
+
+### Zaparoo Connected
+
+Shows whether the Zaparoo device is currently connected.
+true indicates the device is online  
+false indicates the device is offline or powered off
+
+### Zaparoo Media
+
+Shows the name of the currently playing media, if available.
+Additional attributes expose the full media payload returned by the device, including metadata such as title and platform.
+If no media is active, the sensor state will be unknown.
+
+---
+
+## Debugging
+
+To enable debug logging:
+```yaml
+logger:  
+  logs:  
+    custom_components.zaparoo: debug
+```
+---
+
+## License
+
+GPL-3.0 license
