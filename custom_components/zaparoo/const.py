@@ -19,7 +19,3 @@ EVENT_METHOD_MAP: dict[str, str] = {
     "indexing": "indexing",
 }
 TRIGGER_TYPES = list(EVENT_METHOD_MAP.values())
-
-# Services
-SERVICE_LAUNCH = "launch"
-SERVICE_STOP = "stop"
