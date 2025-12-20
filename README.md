@@ -138,9 +138,9 @@ logger:
   logs:  
     custom_components.zaparoo: debug
 ```
----
 
 ## License
 
 GPL-3.0 license
+
 
