@@ -18,7 +18,7 @@ This integration is designed with events in mind. It uses a persistent WebSocket
 
 ### Via HACS (recommended)
 
-1. Add this repository as a Custom Repository
+1. Add this repository as a Custom Repository as Type Integration
 2. Install the Zaparoo integration
 3. Restart Home Assistant
 
@@ -142,5 +142,6 @@ logger:
 ## License
 
 GPL-3.0 license
+
 
 
