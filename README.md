@@ -112,7 +112,7 @@ response_variable: media_state
 
 Each configured Zaparoo device provides the following sensors.
 
-### Zaparoo Events
+### Zaparoo Notification
 
 Displays the most recent Zaparoo notification, such as media.started.
 The sensor exposes additional attributes containing the full event payload received from the device. The full documentation of events can be found [here](https://zaparoo.org/docs/core/api/notifications/)
@@ -142,6 +142,7 @@ logger:
 ## License
 
 GPL-3.0 license
+
 
 
 
