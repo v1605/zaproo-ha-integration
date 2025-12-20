@@ -3,8 +3,6 @@
 The Zaparoo integration connects Home Assistant to a Zaparoo device, allowing you to emulate token scans, control active launchers, and monitor media and connection state in real time.
 This integration is designed with events in mind. It uses a persistent WebSocket connection for fast updates and responsive control.
 
----
-
 ## Features
 
 - Emulate scanning Zaparoo NFC or token data
@@ -15,8 +13,6 @@ This integration is designed with events in mind. It uses a persistent WebSocket
   - Device connection state
   - Currently playing media
 - Compatible with automations, scripts, and dashboards
-
----
 
 ## Installation
 
@@ -31,7 +27,6 @@ This integration is designed with events in mind. It uses a persistent WebSocket
 1. Copy `custom_components/zaparoo` into your Home Assistant configuration directory
 2. Restart Home Assistant
 
----
 
 ## Configuration
 
@@ -42,7 +37,6 @@ You will need:
 
 Once configured, the integration creates a Zaparoo device with associated sensors and services.
 
----
 
 ## Services
 
@@ -79,8 +73,6 @@ data:
   text: "**launch.title:SNES/Super Mario World"
 ```
 
----
-
 ### zaparoo.stop
 
 Stop any active launcher, if supported by the device.
@@ -96,7 +88,6 @@ service: zaparoo.stop
 data:  
   device_id: YOUR_DEVICE_ID
 ```
----
 
 ### zaparoo.media
 
@@ -138,7 +129,6 @@ Shows the name of the currently playing media, if available.
 Additional attributes expose the full media payload returned by the device, including metadata such as title and platform.
 If no media is active, the sensor state will be unknown.
 
----
 
 ## Debugging
 
@@ -153,3 +143,4 @@ logger:
 ## License
 
 GPL-3.0 license
+
